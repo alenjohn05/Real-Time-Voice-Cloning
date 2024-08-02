@@ -18,3 +18,6 @@
 encoder/saved_models/*
 synthesizer/saved_models/*
 vocoder/saved_models/*
+.venv
+saved_models
+SV2TTS

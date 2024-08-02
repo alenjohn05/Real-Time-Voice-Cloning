@@ -182,27 +182,12 @@ if __name__ == '__main__':
 
             # Trim excess silences to compensate for gaps in spectrograms (issue #53)
             generated_wav = encoder.preprocess_wav(generated_wav)
-
-            # Play the audio (non-blocking)
-            if not args.no_sound:
-                import sounddevice as sd
-                try:
-                    sd.stop()
-                    sd.play(generated_wav, synthesizer.sample_rate)
-                except sd.PortAudioError as e:
-                    print("\nCaught exception: %s" % repr(e))
-                    print("Continuing without audio playback. Suppress this message with the \"--no_sound\" flag.\n")
-                except:
-                    raise
-
-            # Save it on the disk
             filename = "demo_output_%02d.wav" % num_generated
             print(generated_wav.dtype)
             sf.write(filename, generated_wav.astype(np.float32), synthesizer.sample_rate)
             num_generated += 1
             print("\nSaved output as %s\n\n" % filename)
-
-
         except Exception as e:
             print("Caught exception: %s" % repr(e))
             print("Restarting\n")
+            
